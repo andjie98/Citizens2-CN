@@ -26,7 +26,7 @@ public class ExperienceAction extends NPCShopAction {
 
     @Override
     public String describe() {
-        return exp == 1 ? exp + " level" : exp + " levels";
+        return exp == 1 ? exp + " 等级" : exp + " 等级";
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ExperienceAction extends NPCShopAction {
                 ExperienceAction old = (ExperienceAction) previous;
                 description = old.describe();
             }
-            return Util.createItem(Material.EXPERIENCE_BOTTLE, "XP Level", description);
+            return Util.createItem(Material.EXPERIENCE_BOTTLE, "经验等级", description);
         }
 
         @Override

@@ -32,6 +32,6 @@ public class Pose {
 
     @Override
     public String toString() {
-        return "Pose{Name='" + name + "';Pitch='" + pitch + "';Yaw='" + yaw + "';}";
+        return "姿势{Name='" + name + "';俯仰='" + pitch + "';偏航='" + yaw + "';}";
     }
 }

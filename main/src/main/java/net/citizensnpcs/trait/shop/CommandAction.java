@@ -85,7 +85,7 @@ public class CommandAction extends NPCShopAction {
         });
     }
 
-    @Menu(title = "Command editor", dimensions = { 4, 9 })
+    @Menu(title = "命令编辑器", dimensions = { 4, 9 })
     public static class CommandActionEditor extends InventoryMenuPage {
         private CommandAction base;
         private Consumer<NPCShopAction> callback;
@@ -104,8 +104,8 @@ public class CommandAction extends NPCShopAction {
                 int idx = i;
                 ctx.getSlot(i).clear();
                 if (i < base.commands.size()) {
-                    ctx.getSlot(i).setItemStack(new ItemStack(Material.FEATHER), "<f>Set command",
-                            "Right click to remove\nCurrently: " + base.commands.get(i));
+                    ctx.getSlot(i).setItemStack(new ItemStack(Material.FEATHER), "<f>设置命令",
+                            "右键点击以删除\n当前: " + base.commands.get(i));
                 }
                 ctx.getSlot(i).setClickHandler(event -> {
                     if (event.isRightClick()) {
@@ -133,16 +133,17 @@ public class CommandAction extends NPCShopAction {
                 });
             }
             ctx.getSlot(3 * 9 + 3).setItemStack(new ItemStack(Util.getFallbackMaterial("COMMAND_BLOCK", "COMMAND")),
-                    "Run commands as server", base.server ? ChatColor.GREEN + "On" : ChatColor.RED + "OFF");
+                    "以服务器身份运行命令", base.server ? ChatColor.GREEN + "开启" : ChatColor.RED + "关闭");
             ctx.getSlot(3 * 9 + 3).addClickHandler(InputMenus.toggler(res -> base.server = res, base.server));
             ctx.getSlot(3 * 9 + 4).setItemStack(
-                    new ItemStack(Util.getFallbackMaterial("COMPARATOR", "REDSTONE_COMPARATOR")), "Run commands as op",
-                    base.op ? ChatColor.GREEN + "On" : ChatColor.RED + "OFF");
+                    new ItemStack(Util.getFallbackMaterial("COMPARATOR", "REDSTONE_COMPARATOR")), "以OP身份运行命令",
+                    base.op ? ChatColor.GREEN + "开启" : ChatColor.RED + "关闭");
             ctx.getSlot(3 * 9 + 4).addClickHandler(InputMenus.clickToggle(res -> {
                 base.op = res;
-                return res ? ChatColor.GREEN + "On" : ChatColor.RED + "Off";
+                return res ? ChatColor.GREEN + "开启" : ChatColor.RED + "关闭";
             }, base.server));
         }
+
 
         @Override
         public void onClose(HumanEntity player) {

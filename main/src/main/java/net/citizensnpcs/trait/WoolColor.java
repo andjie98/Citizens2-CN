@@ -66,6 +66,6 @@ public class WoolColor extends Trait {
 
     @Override
     public String toString() {
-        return "WoolColor{" + color.name() + "}";
+        return "羊毛色{" + color.name() + "}";
     }
 }

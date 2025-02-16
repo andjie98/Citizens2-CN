@@ -55,7 +55,7 @@ public class PlayerUpdateTask extends BukkitRunnable {
                 }
                 NPC old = ((NPCHolder) rm.entity).getNPC();
                 if (old != next) {
-                    Messaging.severe("Player registered twice with different NPC instances", rm.entity.getUniqueId());
+                    Messaging.severe("玩家使用不同NPC实例注册了两次", rm.entity.getUniqueId());
                 }
                 rm.entity.remove();
             }

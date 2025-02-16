@@ -35,7 +35,7 @@ public class PermissionAction extends NPCShopAction {
 
     @Override
     public String describe() {
-        String description = permissions.size() + " permissions";
+        String description = permissions.size() + " 权限";
         for (int i = 0; i < permissions.size(); i++) {
             description += "\n" + permissions.get(i);
             if (i == 3) {
@@ -91,7 +91,7 @@ public class PermissionAction extends NPCShopAction {
         });
     }
 
-    @Menu(title = "Permissions editor", dimensions = { 3, 9 })
+    @Menu(title = "权限编辑器", dimensions = {3, 9})
     public static class PermissionActionEditor extends InventoryMenuPage {
         private PermissionAction base;
         private Consumer<NPCShopAction> callback;
@@ -110,8 +110,8 @@ public class PermissionAction extends NPCShopAction {
                 int idx = i;
                 ctx.getSlot(i).clear();
                 if (i < base.permissions.size()) {
-                    ctx.getSlot(i).setItemStack(new ItemStack(Material.FEATHER), "<f>Set permission",
-                            "Right click to remove\nCurrently: " + base.permissions.get(i));
+                    ctx.getSlot(i).setItemStack(new ItemStack(Material.FEATHER), "<f>设置权限",
+                            "右键点击以移除\n当前权限：" + base.permissions.get(i));
                 }
                 ctx.getSlot(i).setClickHandler(event -> {
                     if (event.isRightClick()) {
@@ -172,7 +172,7 @@ public class PermissionAction extends NPCShopAction {
                 PermissionAction old = (PermissionAction) previous;
                 description = old.describe();
             }
-            return Util.createItem(Material.PAPER, "Permission", description);
+            return Util.createItem(Material.PAPER, "权限", description);
         }
 
         @Override

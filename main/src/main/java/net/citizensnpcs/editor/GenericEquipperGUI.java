@@ -19,22 +19,23 @@ import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
 import net.citizensnpcs.util.Util;
 
-@Menu(title = "NPC Equipment", type = InventoryType.CHEST, dimensions = { 3, 9 })
-@MenuSlot(slot = { 0, 0 }, material = Material.DIAMOND_SWORD, lore = "Place in hand item below", amount = 1)
+@Menu(title = "NPC 装备", type = InventoryType.CHEST, dimensions = { 3, 9 })
+@MenuSlot(slot = { 0, 0 }, material = Material.DIAMOND_SWORD, lore = "在下方放置主手物品", amount = 1)
 @MenuSlot(
         slot = { 0, 1 },
         compatMaterial = { "SHIELD", "BARRIER", "FIRE" },
-        lore = "Place offhand item below",
+        lore = "在下方放置副手物品",
         amount = 1)
-@MenuSlot(slot = { 0, 2 }, material = Material.DIAMOND_HELMET, lore = "Place helmet below", amount = 1)
-@MenuSlot(slot = { 0, 3 }, material = Material.DIAMOND_CHESTPLATE, lore = "Place chestplate below", amount = 1)
-@MenuSlot(slot = { 0, 4 }, material = Material.DIAMOND_LEGGINGS, lore = "Place leggings below", amount = 1)
-@MenuSlot(slot = { 0, 5 }, material = Material.DIAMOND_BOOTS, lore = "Place boots below", amount = 1)
-@MenuSlot(slot = { 0, 6 }, material = Material.DIAMOND_CHESTPLATE, lore = "Place body item below", amount = 1)
+@MenuSlot(slot = { 0, 2 }, material = Material.DIAMOND_HELMET, lore = "在下方放置头盔", amount = 1)
+@MenuSlot(slot = { 0, 3 }, material = Material.DIAMOND_CHESTPLATE, lore = "在下方放置护甲", amount = 1)
+@MenuSlot(slot = { 0, 4 }, material = Material.DIAMOND_LEGGINGS, lore = "在下方放置护腿", amount = 1)
+@MenuSlot(slot = { 0, 5 }, material = Material.DIAMOND_BOOTS, lore = "在下方放置靴子", amount = 1)
+@MenuSlot(slot = { 0, 6 }, material = Material.DIAMOND_CHESTPLATE, lore = "在下方放置身体物品", amount = 1)
 @MenuPattern(
         offset = { 0, 7 },
-        slots = { @MenuSlot(pat = 'x', compatMaterial = { "BARRIER", "FIRE" }, title = "<4>Unused") },
+        slots = { @MenuSlot(pat = 'x', compatMaterial = { "BARRIER", "FIRE" }, title = "<4>未使用") },
         value = "xx\nxx\nxx")
+
 public class GenericEquipperGUI extends InventoryMenuPage {
     @InjectContext
     private NPC npc;

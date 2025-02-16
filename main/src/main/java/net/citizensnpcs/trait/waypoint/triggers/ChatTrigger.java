@@ -30,7 +30,7 @@ public class ChatTrigger implements WaypointTrigger {
 
     @Override
     public String description() {
-        return String.format("[[Chat]] [radius %f, %s]", radius, Joiner.on(", ").join(lines));
+        return String.format("[[聊天] [半径 %f, %s]", radius, Joiner.on(", ").join(lines));
     }
 
     @Override

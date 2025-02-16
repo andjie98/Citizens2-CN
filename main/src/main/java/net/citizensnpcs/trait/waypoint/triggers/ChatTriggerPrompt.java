@@ -51,7 +51,7 @@ public class ChatTriggerPrompt extends StringPrompt implements WaypointTriggerPr
     public String getPromptText(ConversationContext context) {
         if (context.getSessionData("said") == Boolean.TRUE) {
             Messaging.send((CommandSender) context.getForWhom(),
-                    "Current lines:<br>-   " + Joiner.on("<br>-   ").join(lines));
+                    "当前行:<br>-   " + Joiner.on("<br>-   ").join(lines));
         } else {
             Messaging.sendTr((CommandSender) context.getForWhom(), Messages.CHAT_TRIGGER_PROMPT);
             context.setSessionData("said", true);

@@ -51,9 +51,7 @@ public class Waypoint {
         if (triggers == null)
             return;
         for (int i = 0; i < triggers.size(); i++) {
-            base += "\n    - " + triggers.get(i).description()
-                    + " [<hover:show_text:Remove trigger><click:run_command:/npc path remove_trigger " + i
-                    + "><u><red>-</click></hover>]";
+            base += "\n - " + triggers.get(i).description() + " [hover:show_text:移除触发器<click:run_command:/npc path remove_trigger " + i + "><u><red>-</click></hover>]";
         }
         Messaging.sendTr(sender, Messages.WAYPOINT_TRIGGER_LIST, base);
     }
@@ -82,7 +80,7 @@ public class Waypoint {
     }
 
     public List<WaypointTrigger> getTriggers() {
-        return triggers == null ? Collections.<WaypointTrigger> emptyList() : triggers;
+        return triggers == null ? Collections.<WaypointTrigger>emptyList() : triggers;
     }
 
     @Override
@@ -122,7 +120,7 @@ public class Waypoint {
 
     @Override
     public String toString() {
-        return "Waypoint [" + location + (triggers == null ? "]" : ", " + triggers.size() + " triggers]");
+        return "路径点 [" + location + (triggers == null ? "]" : ", " + triggers.size() + " 个触发器]");
     }
 
     static {

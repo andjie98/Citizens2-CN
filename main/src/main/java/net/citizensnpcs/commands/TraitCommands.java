@@ -46,16 +46,16 @@ public class TraitCommands {
         for (String traitName : Splitter.on(',').split(args.getJoinedStrings(1))) {
             if (!sender.hasPermission("citizens.npc.trait." + traitName)
                     && !sender.hasPermission("citizens.npc.trait.*")) {
-                failed.add(String.format("%s: No permission", traitName));
+                failed.add(String.format("%s: 没有权限", traitName));
                 continue;
             }
             Class<? extends Trait> clazz = CitizensAPI.getTraitFactory().getTraitClass(traitName);
             if (clazz == null) {
-                failed.add(String.format("%s: Trait not found", traitName));
+                failed.add(String.format("%s: 特性未找到", traitName));
                 continue;
             }
             if (npc.hasTrait(clazz)) {
-                failed.add(String.format("%s: Already added", traitName));
+                failed.add(String.format("%s: 已添加", traitName));
                 continue;
             }
             addTrait(npc, clazz, sender);
@@ -90,40 +90,45 @@ public class TraitCommands {
 
     @Command(
             aliases = { "trait" },
-            usage = "remove [trait names]...",
+            usage = "remove [特性名称]...",
             desc = "",
             modifiers = { "remove", "rem", "r" },
             min = 2,
-            permission = "citizens.npc.trait")
+            permission = "citizens.npc.trait"
+    )
     public void remove(CommandContext args, CommandSender sender, NPC npc) throws CommandException {
         List<String> removed = Lists.newArrayList();
         List<String> failed = Lists.newArrayList();
+
         for (String traitName : Splitter.on(',').split(args.getJoinedStrings(1))) {
             if (!sender.hasPermission("citizens.npc.trait." + traitName)
                     && !sender.hasPermission("citizens.npc.trait.*")) {
-                failed.add(String.format("%s: No permission", traitName));
+                failed.add(String.format("%s: 没有权限", traitName));
                 continue;
             }
             Class<? extends Trait> clazz = CitizensAPI.getTraitFactory().getTraitClass(traitName);
             if (clazz == null) {
-                failed.add(String.format("%s: Trait not found", traitName));
+                failed.add(String.format("%s: 找不到特性", traitName));
                 continue;
             }
             boolean hasTrait = npc.hasTrait(clazz);
             if (!hasTrait) {
-                failed.add(String.format("%s: Trait not attached", traitName));
+                failed.add(String.format("%s: 未附加特性", traitName));
                 continue;
             }
             removeTrait(npc, clazz, sender);
             removed.add(StringHelper.wrap(traitName));
         }
+
         if (removed.size() > 0) {
             Messaging.sendTr(sender, Messages.TRAITS_REMOVED, Joiner.on(", ").join(removed));
         }
+
         if (failed.size() > 0) {
             Messaging.sendTr(sender, Messages.FAILED_TO_REMOVE, Joiner.on(", ").join(failed));
         }
     }
+
 
     private void removeTrait(NPC npc, Class<? extends Trait> clazz, CommandSender sender) {
         Bukkit.getPluginManager().callEvent(new NPCTraitCommandDetachEvent(npc, clazz, sender));
@@ -141,15 +146,16 @@ public class TraitCommands {
         List<String> added = Lists.newArrayList();
         List<String> removed = Lists.newArrayList();
         List<String> failed = Lists.newArrayList();
+
         for (String traitName : Splitter.on(',').split(args.getJoinedStrings(0))) {
             if (!sender.hasPermission("citizens.npc.trait." + traitName)
                     && !sender.hasPermission("citizens.npc.trait.*")) {
-                failed.add(String.format("%s: No permission", traitName));
+                failed.add(String.format("%s: 没有权限", traitName));
                 continue;
             }
             Class<? extends Trait> clazz = CitizensAPI.getTraitFactory().getTraitClass(traitName);
             if (clazz == null) {
-                failed.add(String.format("%s: Trait not found", traitName));
+                failed.add(String.format("%s: 找不到特性", traitName));
                 continue;
             }
             boolean remove = npc.hasTrait(clazz);
@@ -168,7 +174,7 @@ public class TraitCommands {
             Messaging.sendTr(sender, Messages.TRAITS_REMOVED, Joiner.on(", ").join(removed));
         }
         if (failed.size() > 0) {
-            Messaging.send(sender, "Failed to toggle traits", Joiner.on(", ").join(failed));
+            Messaging.send(sender, "切换特性失败", Joiner.on(", ").join(failed));
         }
     }
 }

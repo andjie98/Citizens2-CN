@@ -18,7 +18,7 @@ public class SpeedTrigger implements WaypointTrigger {
 
     @Override
     public String description() {
-        return String.format("[[Speed]] change to %f", speed);
+        return String.format("[[速度]] 更改为 %f", speed);
     }
 
     public float getSpeed() {

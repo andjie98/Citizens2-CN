@@ -31,7 +31,7 @@ public class OpenShopAction extends NPCShopAction {
     @Override
     public String describe() {
         NPCShop shop = ((Citizens) CitizensAPI.getPlugin()).getShops().getShop(shopName);
-        String description = "Open " + shop.getName();
+        String description = "打开 " + shop.getName();
         return description;
     }
 
@@ -81,7 +81,7 @@ public class OpenShopAction extends NPCShopAction {
                 OpenShopAction old = (OpenShopAction) previous;
                 description = old.describe();
             }
-            return Util.createItem(Material.BOOKSHELF, "Open Shop", description);
+            return Util.createItem(Material.BOOKSHELF, "打开商店", description);
         }
 
         @Override

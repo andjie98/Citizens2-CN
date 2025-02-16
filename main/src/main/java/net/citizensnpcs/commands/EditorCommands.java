@@ -37,7 +37,7 @@ public class EditorCommands {
             permission = "citizens.npc.edit.equip")
     public void equip(CommandContext args, Player player, NPC npc) throws CommandException {
         if (!npc.isSpawned())
-            throw new CommandException("NPC must be spawned");
+            throw new CommandException("NPC必须被生成");
 
         Editor.enterOrLeave(player, new EquipmentEditor(player, npc));
     }

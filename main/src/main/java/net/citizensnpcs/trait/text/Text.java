@@ -68,8 +68,7 @@ public class Text extends Trait implements Runnable, Listener {
     /**
      * Adds a piece of text that will be said by the NPC.
      *
-     * @param string
-     *            the text to say
+     * @param string the text to say
      */
     public void add(String string) {
         text.add(string);
@@ -78,10 +77,8 @@ public class Text extends Trait implements Runnable, Listener {
     /**
      * Edit the text at a given index to a new text.
      *
-     * @param index
-     *            the text's index
-     * @param newText
-     *            the new text to use
+     * @param index   the text's index
+     * @param newText the new text to use
      */
     public void edit(int index, String newText) {
         text.set(index, newText);
@@ -190,9 +187,7 @@ public class Text extends Trait implements Runnable, Listener {
     boolean sendPage(CommandSender player, int page) {
         Paginator paginator = new Paginator().header("Current Texts").enablePageSwitcher("/npc text page $page");
         for (int i = 0; i < text.size(); i++) {
-            paginator.addLine(text.get(i) + " <green>(<click:suggest_command:edit " + i
-                    + " ><yellow>edit</click>) (<hover:show_text:Remove this text><click:run_command:/npc text remove "
-                    + i + "><red>-</click></hover>)");
+            paginator.addLine(text.get(i) + " <green>(<click:suggest_command:edit " + i + " ><yellow>编辑</click>) (hover:show_text:移除这段文字<click:run_command:/npc text remove " + i + "><red>-</click></hover>)");
         }
         return paginator.sendPage(player, page);
     }
@@ -230,8 +225,7 @@ public class Text extends Trait implements Runnable, Listener {
     /**
      * Set the text delay between messages.
      *
-     * @param delay
-     *            the delay in ticks
+     * @param delay the delay in ticks
      */
     public void setDelay(int delay) {
         this.delay = delay;
@@ -240,8 +234,7 @@ public class Text extends Trait implements Runnable, Listener {
     /**
      * Sets the item in hand pattern required to talk to NPCs, if enabled.
      *
-     * @param pattern
-     *            The new pattern
+     * @param pattern The new pattern
      */
     public void setItemInHandPattern(String pattern) {
         itemInHandPattern = pattern;
@@ -279,7 +272,7 @@ public class Text extends Trait implements Runnable, Listener {
 
         int delay = this.delay == -1
                 ? Setting.DEFAULT_TEXT_DELAY_MIN.asTicks() + Util.getFastRandom()
-                        .nextInt(Setting.DEFAULT_TEXT_DELAY_MAX.asTicks() - Setting.DEFAULT_TEXT_DELAY_MIN.asTicks())
+                .nextInt(Setting.DEFAULT_TEXT_DELAY_MAX.asTicks() - Setting.DEFAULT_TEXT_DELAY_MIN.asTicks())
                 : this.delay;
         if (delay <= 0)
             return;

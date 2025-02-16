@@ -31,7 +31,7 @@ public class AnimationTrigger implements WaypointTrigger {
 
     @Override
     public String description() {
-        return String.format("[[Animation]] animating %s", Joiner.on(", ").join(animations));
+        return String.format("[[动画] 动画 %s", Joiner.on(", ").join(animations));
     }
 
     @Override

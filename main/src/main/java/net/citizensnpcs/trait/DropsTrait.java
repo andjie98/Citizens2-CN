@@ -52,7 +52,7 @@ public class DropsTrait extends Trait {
         }
     }
 
-    @Menu(title = "Add items for drops", type = InventoryType.CHEST, dimensions = { 5, 9 })
+    @Menu(title = "添加物品作为掉落", type = InventoryType.CHEST, dimensions = { 5, 9 })
     public static class DropsGUI extends InventoryMenuPage {
         private final Map<Integer, Double> chances = Maps.newHashMap();
         private Inventory inventory;

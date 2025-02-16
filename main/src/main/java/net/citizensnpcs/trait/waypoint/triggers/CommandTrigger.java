@@ -24,7 +24,7 @@ public class CommandTrigger implements WaypointTrigger {
 
     @Override
     public String description() {
-        return String.format("[[Command]] running %s", Joiner.on(", ").join(commands));
+        return String.format("[[命令]] 执行 %s", Joiner.on(", ").join(commands));
     }
 
     @Override

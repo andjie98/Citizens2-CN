@@ -96,7 +96,7 @@ public class MCTargetStrategy implements PathStrategy, EntityTarget {
 
     @Override
     public String toString() {
-        return "MCTargetStrategy [target=" + target + "]";
+        return "MCTargetStrategy [目标=" + target + "]";
     }
 
     @Override

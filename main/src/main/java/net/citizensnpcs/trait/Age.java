@@ -92,6 +92,6 @@ public class Age extends Trait {
 
     @Override
     public String toString() {
-        return "Age{age=" + age + ",locked=" + locked + "}";
+        return "年龄{年龄=" + age + ",锁定=" + locked + "}";
     }
 }

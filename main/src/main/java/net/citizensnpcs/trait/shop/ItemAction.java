@@ -57,7 +57,7 @@ public class ItemAction extends NPCShopAction {
     public String describe() {
         if (items.size() == 1)
             return stringify(items.get(0));
-        String description = items.size() + " items";
+        String description = items.size() + " 物品";
         for (int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
             description += "\n" + stringify(item);
@@ -186,8 +186,8 @@ public class ItemAction extends NPCShopAction {
                 Map<String, Object> nextAcc = (Map<String, Object>) acc;
                 Map<String, Object> nextCmp = (Map<String, Object>) cmp;
                 if (!nextAcc.containsKey(parts[i])) {
-                    Messaging.warn("Probable error in shop filter: source item does not contain requested meta "
-                            + metaFilter + " actual meta is: " + source);
+                    Messaging.warn("商店筛选器可能存在错误：源物品不包含请求的元信息 "
+                            + metaFilter + " 实际元信息为： " + source);
                     return false;
                 }
                 if (!nextCmp.containsKey(parts[i]))
@@ -274,7 +274,7 @@ public class ItemAction extends NPCShopAction {
         return toMatch.getType().getMaxDurability() != 0 && toMatch.getDurability() != 0;
     }
 
-    @Menu(title = "Item editor", dimensions = { 4, 9 })
+    @Menu(title = "物品编辑器", dimensions = { 4, 9 })
     public static class ItemActionEditor extends InventoryMenuPage {
         private ItemAction base;
         private Consumer<NPCShopAction> callback;
@@ -302,16 +302,16 @@ public class ItemAction extends NPCShopAction {
                     event.setCancelled(true);
                 });
             }
-            ctx.getSlot(3 * 9 + 1).setItemStack(new ItemStack(Material.ANVIL), "Must have no damage",
-                    base.requireUndamaged ? ChatColor.GREEN + "On" : ChatColor.RED + "Off");
+            ctx.getSlot(3 * 9 + 1).setItemStack(new ItemStack(Material.ANVIL), "必须完好无损",
+                    base.requireUndamaged ? ChatColor.GREEN + "开启" : ChatColor.RED + "关闭");
             ctx.getSlot(3 * 9 + 1)
                     .addClickHandler(InputMenus.toggler(res -> base.requireUndamaged = res, base.requireUndamaged));
             ctx.getSlot(3 * 9 + 2).setItemStack(
                     new ItemStack(Util.getFallbackMaterial("COMPARATOR", "REDSTONE_COMPARATOR")),
-                    "Compare item similarity", base.compareSimilarity ? ChatColor.GREEN + "On" : ChatColor.RED + "Off");
+                    "比较物品相似性", base.compareSimilarity ? ChatColor.GREEN + "开启" : ChatColor.RED + "关闭");
             ctx.getSlot(3 * 9 + 2)
                     .addClickHandler(InputMenus.toggler(res -> base.compareSimilarity = res, base.compareSimilarity));
-            ctx.getSlot(3 * 9 + 3).setItemStack(new ItemStack(Material.BOOK), "Component comparison filter",
+            ctx.getSlot(3 * 9 + 3).setItemStack(new ItemStack(Material.BOOK), "组件比较过滤器",
                     Joiner.on("\n").join(base.metaFilter));
             ctx.getSlot(3 * 9 + 3)
                     .addClickHandler(event -> ctx.getMenu()

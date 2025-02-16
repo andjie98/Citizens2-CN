@@ -534,7 +534,7 @@ public class Citizens extends JavaPlugin implements CitizensPlugin {
                 try {
                     protocolListener = new ProtocolLibListener(Citizens.this);
                 } catch (Throwable t) {
-                    Messaging.severe("ProtocolLib support not enabled due to following error:");
+                    Messaging.severe("由于以下错误，ProtocolLib支持未启用：");
                     t.printStackTrace();
                 }
             }

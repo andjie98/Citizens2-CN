@@ -166,11 +166,11 @@ public class ShopTrait extends Trait {
         public void display(Player sender) {
             if (viewPermission != null && !sender.hasPermission(viewPermission)
                     || !Setting.SHOP_GLOBAL_VIEW_PERMISSION.asString().isEmpty()
-                            && !sender.hasPermission(Setting.SHOP_GLOBAL_VIEW_PERMISSION.asString()))
+                    && !sender.hasPermission(Setting.SHOP_GLOBAL_VIEW_PERMISSION.asString()))
                 return;
 
             if (pages.size() == 0) {
-                Messaging.sendError(sender, "Empty shop");
+                Messaging.sendError(sender, "空商店");
                 return;
             }
             if (type == ShopType.TRADER) {
@@ -234,7 +234,7 @@ public class ShopTrait extends Trait {
         }
     }
 
-    @Menu(title = "NPC Shop Contents Editor", type = InventoryType.CHEST, dimensions = { 5, 9 })
+    @Menu(title = "NPC 商店内容编辑器", type = InventoryType.CHEST, dimensions = {5, 9})
     public static class NPCShopContentsEditor extends InventoryMenuPage {
         private NPCShopItem copying;
         private MenuContext ctx;
@@ -247,7 +247,7 @@ public class ShopTrait extends Trait {
 
         public void changePage(int newPage) {
             page = newPage;
-            ctx.setTitle("NPC Shop Contents Editor (" + (newPage + 1) + "/" + (shop.pages.size() + 1) + ")");
+            ctx.setTitle("NPC 商店内容编辑器 (" + (newPage + 1) + "/" + (shop.pages.size() + 1) + ")");
             NPCShopPage shopPage = shop.getOrCreatePage(page);
             for (int i = 0; i < ctx.getInventory().getSize(); i++) {
                 InventoryMenuSlot slot = ctx.getSlot(i);
@@ -297,8 +297,7 @@ public class ShopTrait extends Trait {
             InventoryMenuSlot edit = ctx.getSlot(shop.getShopType().editSlotIndex);
             InventoryMenuSlot next = ctx.getSlot(shop.getShopType().nextSlotIndex);
             if (page > 0) {
-                prev.setItemStack(shopPage.getNextPageItem(null, shop.getShopType().prevSlotIndex),
-                        "Previous page (" + newPage + ")");
+                prev.setItemStack(shopPage.getNextPageItem(null, shop.getShopType().prevSlotIndex), "上一页 (" + newPage + ")");
                 Consumer<CitizensInventoryClickEvent> prevItemEditor = prev.getClickHandlers().get(0);
                 prev.setClickHandler(evt -> {
                     if (evt.isShiftClick()) {
@@ -309,8 +308,7 @@ public class ShopTrait extends Trait {
                     changePage(page - 1);
                 });
             }
-            next.setItemStack(shopPage.getNextPageItem(null, shop.getShopType().nextSlotIndex),
-                    page + 1 >= shop.pages.size() ? "New page" : "Next page (" + (newPage + 1) + ")");
+            next.setItemStack(shopPage.getNextPageItem(null, shop.getShopType().nextSlotIndex), page + 1 >= shop.pages.size() ? "新页面" : "下一页 (" + (newPage + 1) + ")");
             Consumer<CitizensInventoryClickEvent> nextItemEditor = next.getClickHandlers().get(0);
             next.setClickHandler(evt -> {
                 if (evt.isShiftClick()) {
@@ -322,7 +320,7 @@ public class ShopTrait extends Trait {
             });
 
             Consumer<CitizensInventoryClickEvent> editPageItem = edit.getClickHandlers().get(0);
-            edit.setItemStack(new ItemStack(Material.BOOK), "Edit page");
+            edit.setItemStack(new ItemStack(Material.BOOK), "编辑页面");
             edit.setClickHandler(evt -> {
                 if (evt.isShiftClick()) {
                     editPageItem.accept(evt);
@@ -387,7 +385,7 @@ public class ShopTrait extends Trait {
         }
 
         private void changeAction(List<NPCShopAction> source, Function<NPCShopAction, Boolean> filter,
-                NPCShopAction delta) {
+                                  NPCShopAction delta) {
             for (int i = 0; i < source.size(); i++) {
                 if (filter.apply(source.get(i))) {
                     if (delta == null) {
@@ -480,7 +478,7 @@ public class ShopTrait extends Trait {
         }
 
         private void onClick(NPCShop shop, Player player, InventoryMultiplexer inventory, boolean shiftClick,
-                boolean secondClick) {
+                             boolean secondClick) {
             // TODO: InventoryMultiplexer could be lifted up to transact in apply(), which would be cleaner.
             // if this is done, it should probably refresh after every transaction application
             if (timesPurchasable > 0 && purchases.getOrDefault(player.getUniqueId(), 0) == timesPurchasable) {
@@ -554,18 +552,18 @@ public class ShopTrait extends Trait {
                 Pattern.CASE_INSENSITIVE);
     }
 
-    @Menu(title = "NPC Shop Item Editor", type = InventoryType.CHEST, dimensions = { 6, 9 })
+    @Menu(title = "NPC 商店物品编辑器", type = InventoryType.CHEST, dimensions = {6, 9})
     public static class NPCShopItemEditor extends InventoryMenuPage {
         @MenuPattern(
-                offset = { 0, 6 },
-                slots = { @MenuSlot(pat = 'x', material = Material.AIR) },
+                offset = {0, 6},
+                slots = {@MenuSlot(pat = 'x', material = Material.AIR)},
                 value = "xxx\nxxx\nxxx")
         private InventoryMenuPattern actionItems;
         private NPCShopItem base;
         private final Consumer<NPCShopItem> callback;
         @MenuPattern(
-                offset = { 0, 0 },
-                slots = { @MenuSlot(pat = 'x', material = Material.AIR) },
+                offset = {0, 0},
+                slots = {@MenuSlot(pat = 'x', material = Material.AIR)},
                 value = "xxx\nxxx\nxxx")
         private InventoryMenuPattern costItems;
         private MenuContext ctx;
@@ -590,21 +588,21 @@ public class ShopTrait extends Trait {
             if (modified.display != null) {
                 ctx.getSlot(9 * 4 + 4).setItemStack(modified.getDisplayItem(null));
             }
-            ctx.getSlot(9 * 3 + 2).setItemStack(new ItemStack(Material.EGG), "Only purchasable once per player",
-                    "Times purchasable: " + modified.timesPurchasable
-                            + (modified.timesPurchasable == 0 ? " (no limit)" : ""));
+            ctx.getSlot(9 * 3 + 2).setItemStack(new ItemStack(Material.EGG), "每个玩家只能购买一次",
+                    "可购买次数: " + modified.timesPurchasable
+                            + (modified.timesPurchasable == 0 ? " (无限制)" : ""));
             ctx.getSlot(9 * 3 + 2).setClickHandler(e -> ctx.getMenu()
                     .transition(InputMenus.stringSetter(() -> String.valueOf(modified.timesPurchasable), s -> {
                         modified.timesPurchasable = Integer.parseInt(s);
-                        ctx.getSlot(9 * 4 + 2).setDescription("Times purchasable: " + modified.timesPurchasable
-                                + (modified.timesPurchasable == 0 ? " (no limit)" : ""));
+                        ctx.getSlot(9 * 4 + 2).setDescription("可购买次数: " + modified.timesPurchasable
+                                + (modified.timesPurchasable == 0 ? " (无限制)" : ""));
                     })));
 
             ctx.getSlot(9 * 4 + 2).setItemStack(new ItemStack(Util.getFallbackMaterial("OAK_SIGN", "SIGN")),
-                    "Set already purchased message, currently:\n",
-                    modified.alreadyPurchasedMessage == null ? "Unset" : modified.alreadyPurchasedMessage);
+                    "设置已购买消息，当前:\n",
+                    modified.alreadyPurchasedMessage == null ? "未设置" : modified.alreadyPurchasedMessage);
             ctx.getSlot(9 * 4 + 2).setClickHandler(e -> InputMenus.runChatStringSetter(ctx.getMenu(), e,
-                    "Enter the new already purchased message, currently:<br>[[" + modified.alreadyPurchasedMessage,
+                    "请输入新的已购买消息，当前:<br>[[" + modified.alreadyPurchasedMessage,
                     s -> {
                         modified.alreadyPurchasedMessage = s;
                         ctx.getSlot(9 * 4 + 2).setDescription(modified.alreadyPurchasedMessage);
@@ -612,35 +610,35 @@ public class ShopTrait extends Trait {
 
             ctx.getSlot(9 * 3 + 3).setItemStack(
                     new ItemStack(Util.getFallbackMaterial("GREEN_WOOL", "EMERALD", "OAK_SIGN", "SIGN")),
-                    "Set successful click message, currently:\n",
-                    modified.resultMessage == null ? "Unset" : modified.resultMessage);
+                    "设置成功点击消息，当前:\n",
+                    modified.resultMessage == null ? "未设置" : modified.resultMessage);
             ctx.getSlot(9 * 3 + 3).setClickHandler(e -> InputMenus.runChatStringSetter(ctx.getMenu(), e,
-                    "Enter the new successful click message, currently:<br>[[" + modified.resultMessage, s -> {
+                    "请输入新的成功点击消息，当前:<br>[[" + modified.resultMessage, s -> {
                         modified.resultMessage = s;
                         ctx.getSlot(9 * 3 + 3).setDescription(modified.resultMessage);
                     }));
 
             ctx.getSlot(9 * 3 + 6).setItemStack(new ItemStack(Util.getFallbackMaterial("RED_WOOL", "OAK_SIGN", "SIGN")),
-                    "Set unsuccessful click message, currently:\n",
-                    modified.costMessage == null ? "Unset" : modified.costMessage);
+                    "设置失败点击消息，当前:\n",
+                    modified.costMessage == null ? "未设置" : modified.costMessage);
             ctx.getSlot(9 * 3 + 6).setClickHandler(e -> InputMenus.runChatStringSetter(ctx.getMenu(), e,
-                    "Enter the new unsuccessful click message, currently:<br>[[" + modified.costMessage, s -> {
+                    "请输入新的失败点击消息，当前:<br>[[" + modified.costMessage, s -> {
                         modified.costMessage = s;
                         ctx.getSlot(9 * 3 + 6).setDescription(modified.costMessage);
                     }));
 
             ctx.getSlot(9 * 3 + 5).setItemStack(new ItemStack(Util.getFallbackMaterial("FEATHER", "OAK_SIGN", "SIGN")),
-                    "Set click to confirm message.",
-                    "For example, 'click again to buy this item'\nYou can use <cost> or <result> placeholders.\nCurrently:\n"
-                            + (modified.clickToConfirmMessage == null ? "Unset" : modified.clickToConfirmMessage));
+                    "设置确认点击消息。",
+                    "例如，'点击再次购买此物品'\n您可以使用 <cost> 或 <result> 占位符。\n当前:\n"
+                            + (modified.clickToConfirmMessage == null ? "未设置" : modified.clickToConfirmMessage));
             ctx.getSlot(9 * 3 + 5).setClickHandler(e -> InputMenus.runChatStringSetter(ctx.getMenu(), e,
-                    "Enter the new click to confirm message, currently:<br>[[" + modified.clickToConfirmMessage, s -> {
+                    "请输入新的确认点击消息，当前:<br>[[" + modified.clickToConfirmMessage, s -> {
                         modified.clickToConfirmMessage = s;
                         ctx.getSlot(9 * 3 + 5).setDescription(modified.clickToConfirmMessage);
                     }));
 
             ctx.getSlot(9 * 3 + 4).setItemStack(new ItemStack(Material.REDSTONE),
-                    "Sell as many times as possible on shift click\n", "Currently: " + modified.maxRepeatsOnShiftClick);
+                    "按住Shift键可以尽可能多次出售\n", "当前: " + modified.maxRepeatsOnShiftClick);
             ctx.getSlot(9 * 3 + 4).setClickHandler(
                     InputMenus.toggler(res -> modified.maxRepeatsOnShiftClick = res, modified.maxRepeatsOnShiftClick));
             int pos = 0;
@@ -665,7 +663,7 @@ public class ShopTrait extends Trait {
             }
         }
 
-        @MenuSlot(slot = { 5, 3 }, material = Material.REDSTONE_BLOCK, amount = 1, title = "<7>Cancel")
+        @MenuSlot(slot = {5, 3}, material = Material.REDSTONE_BLOCK, amount = 1, title = "<7>Cancel")
         public void onCancel(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transitionBack();
         }
@@ -678,7 +676,7 @@ public class ShopTrait extends Trait {
             callback.accept(base);
         }
 
-        @MenuSlot(slot = { 4, 5 }, material = Material.BOOK, amount = 1, title = "<f>Set description")
+        @MenuSlot(slot = {4, 5}, material = Material.BOOK, amount = 1, title = "<f>Set description")
         public void onEditDescription(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             event.setCancelled(true);
             if (modified.display == null)
@@ -700,7 +698,7 @@ public class ShopTrait extends Trait {
                     });
         }
 
-        @MenuSlot(slot = { 4, 3 }, material = Material.NAME_TAG, amount = 1, title = "<f>Set name")
+        @MenuSlot(slot = {4, 3}, material = Material.NAME_TAG, amount = 1, title = "<f>Set name")
         public void onEditName(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             event.setCancelled(true);
             if (modified.display == null)
@@ -713,7 +711,7 @@ public class ShopTrait extends Trait {
             }));
         }
 
-        @ClickHandler(slot = { 4, 4 })
+        @ClickHandler(slot = {4, 4})
         public void onModifyDisplayItem(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             event.setCancelled(true);
             if (event.getCursor() != null) {
@@ -725,13 +723,13 @@ public class ShopTrait extends Trait {
             }
         }
 
-        @MenuSlot(slot = { 5, 4 }, material = Material.TNT, amount = 1, title = "<c>Remove")
+        @MenuSlot(slot = {5, 4}, material = Material.TNT, amount = 1, title = "<c>Remove")
         public void onRemove(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             base = null;
             ctx.getMenu().transitionBack();
         }
 
-        @MenuSlot(slot = { 5, 5 }, material = Material.EMERALD_BLOCK, amount = 1, title = "<a>Save")
+        @MenuSlot(slot = {5, 5}, material = Material.EMERALD_BLOCK, amount = 1, title = "<a>Save")
         public void onSave(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             base = modified;
             ctx.getMenu().transitionBack();
@@ -774,7 +772,7 @@ public class ShopTrait extends Trait {
         }
     }
 
-    @Menu(title = "NPC Shop Page Editor", type = InventoryType.CHEST, dimensions = { 5, 9 })
+    @Menu(title = "NPC Shop Page Editor", type = InventoryType.CHEST, dimensions = {5, 9})
     public static class NPCShopPageSettings extends InventoryMenuPage {
         private MenuContext ctx;
         private final NPCShopPage page;
@@ -783,7 +781,7 @@ public class ShopTrait extends Trait {
             this.page = page;
         }
 
-        @MenuSlot(slot = { 0, 4 }, material = Material.FEATHER, amount = 1)
+        @MenuSlot(slot = {0, 4}, material = Material.FEATHER, amount = 1)
         public void editPageTitle(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transition(InputMenus.stringSetter(() -> page.title,
                     newTitle -> page.title = newTitle.isEmpty() ? null : newTitle));
@@ -795,7 +793,7 @@ public class ShopTrait extends Trait {
             ctx.getSlot(4).setDescription("Set page title<br>Currently: " + page.title);
         }
 
-        @MenuSlot(slot = { 4, 4 }, material = Material.TNT, amount = 1, title = "<c>Remove page")
+        @MenuSlot(slot = {4, 4}, material = Material.TNT, amount = 1, title = "<c>Remove page")
         public void removePage(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.data().put("removePage", page.index);
             ctx.getMenu().transitionBack();
@@ -833,7 +831,7 @@ public class ShopTrait extends Trait {
         private static final HandlerList HANDLERS = new HandlerList();
     }
 
-    @Menu(title = "NPC Shop Editor", type = InventoryType.CHEST, dimensions = { 1, 9 })
+    @Menu(title = "NPC Shop Editor", type = InventoryType.CHEST, dimensions = {1, 9})
     public static class NPCShopSettings extends InventoryMenuPage {
         private MenuContext ctx;
         private final NPCShop shop;
@@ -856,17 +854,17 @@ public class ShopTrait extends Trait {
             }
         }
 
-        @MenuSlot(slot = { 0, 2 }, material = Material.FEATHER, amount = 1, title = "<f>Edit shop items")
+        @MenuSlot(slot = {0, 2}, material = Material.FEATHER, amount = 1, title = "<f>Edit shop items")
         public void onEditItems(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transition(new NPCShopContentsEditor(shop));
         }
 
-        @MenuSlot(slot = { 0, 0 }, compatMaterial = { "OAK_SIGN", "SIGN" }, amount = 1)
+        @MenuSlot(slot = {0, 0}, compatMaterial = {"OAK_SIGN", "SIGN"}, amount = 1)
         public void onPermissionChange(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transition(InputMenus.stringSetter(shop::getRequiredPermission, shop::setPermission));
         }
 
-        @MenuSlot(slot = { 0, 8 }, material = Material.CHEST, amount = 1, title = "<f>Set shop type")
+        @MenuSlot(slot = {0, 8}, material = Material.CHEST, amount = 1, title = "<f>Set shop type")
         public void onSetInventoryType(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transition(InputMenus.picker("Set shop type",
                     (Choice<ShopType> choice) -> shop.setShopType(choice.getValue()),
@@ -883,12 +881,12 @@ public class ShopTrait extends Trait {
                     Choice.of(ShopType.TRADER, Material.EMERALD, "Trader", shop.getShopType() == ShopType.TRADER)));
         }
 
-        @MenuSlot(slot = { 0, 4 }, material = Material.NAME_TAG, amount = 1)
+        @MenuSlot(slot = {0, 4}, material = Material.NAME_TAG, amount = 1)
         public void onSetTitle(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             ctx.getMenu().transition(InputMenus.stringSetter(shop::getTitle, shop::setTitle));
         }
 
-        @MenuSlot(slot = { 0, 6 }, compatMaterial = { "COMMAND_BLOCK", "COMMAND" }, amount = 1)
+        @MenuSlot(slot = {0, 6}, compatMaterial = {"COMMAND_BLOCK", "COMMAND"}, amount = 1)
         public void onToggleRightClick(InventoryMenuSlot slot, CitizensInventoryClickEvent event) {
             event.setCancelled(true);
             if (trait == null)
@@ -904,7 +902,7 @@ public class ShopTrait extends Trait {
         }
     }
 
-    @Menu(title = "Shop", type = InventoryType.CHEST, dimensions = { 5, 9 })
+    @Menu(title = "Shop", type = InventoryType.CHEST, dimensions = {5, 9})
     public static class NPCShopViewer extends InventoryMenuPage {
         private MenuContext ctx;
         private int currentPage = 0;

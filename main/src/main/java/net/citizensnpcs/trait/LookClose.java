@@ -383,7 +383,7 @@ public class LookClose extends Trait {
 
     @Override
     public String toString() {
-        return "LookClose{" + enabled + "}";
+        return "视角看向最近的{" + enabled + "}";
     }
 
     public boolean useRealisticLooking() {

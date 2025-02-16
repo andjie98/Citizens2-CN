@@ -29,7 +29,7 @@ public class AdminCommands {
     @Command(aliases = { "citizens" }, desc = "", max = 0, permission = "citizens.admin")
     public void citizens(CommandContext args, CommandSender sender, NPC npc) throws CommandException {
         Messaging.send(sender, StringHelper.wrapHeader("<green>Citizens v" + plugin.getDescription().getVersion()));
-        Messaging.send(sender, "     <yellow>-- <green>Author: fullwall");
+        Messaging.send(sender, "     <yellow>-- <green>作者: fullwall,翻译作者: lilingfengdev");
         Messaging.send(sender, "     <yellow>-- <green><click:open_url:" + plugin.getDescription().getWebsite()
                 + "><hover:show_text:Citizens website including wiki><u>Website</hover></click> <click:open_url:https://discord.gg/Q6pZGSR><hover:show_text:Citizens Support Discord><u>Support</hover></click>");
 

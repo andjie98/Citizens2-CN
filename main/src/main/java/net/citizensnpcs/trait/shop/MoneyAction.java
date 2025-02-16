@@ -57,15 +57,16 @@ public class MoneyAction extends NPCShopAction {
             EconomyResponse response = economy.depositPlayer(player, amount);
             if (response != null
                     && (response.type == ResponseType.FAILURE || response.type == ResponseType.NOT_IMPLEMENTED)) {
-                Messaging.severe("Failed to deposit", amount, "to", player, "in NPC shop:", response.errorMessage);
+                Messaging.severe("存款失败", amount, "到", player, "的NPC商店:", response.errorMessage);
             }
         }, () -> {
             EconomyResponse response = economy.withdrawPlayer(player, amount);
             if (response != null
                     && (response.type == ResponseType.FAILURE || response.type == ResponseType.NOT_IMPLEMENTED)) {
-                Messaging.severe("Failed to withdraw", amount, "from", player, "in NPC shop:", response.errorMessage);
+                Messaging.severe("取款失败", amount, "从", player, "的NPC商店:", response.errorMessage);
             }
         });
+
     }
 
     @Override
@@ -81,15 +82,16 @@ public class MoneyAction extends NPCShopAction {
             EconomyResponse response = economy.withdrawPlayer(player, amount);
             if (response != null
                     && (response.type == ResponseType.FAILURE || response.type == ResponseType.NOT_IMPLEMENTED)) {
-                Messaging.severe("Failed to withdraw", amount, "from", player, "in NPC shop:", response.errorMessage);
+                Messaging.severe("取款失败", amount, "从", player, "的NPC商店:", response.errorMessage);
             }
         }, () -> {
             EconomyResponse response = economy.depositPlayer(player, amount);
             if (response != null
                     && (response.type == ResponseType.FAILURE || response.type == ResponseType.NOT_IMPLEMENTED)) {
-                Messaging.severe("Failed to deposit", amount, "to", player, "in NPC shop:", response.errorMessage);
+                Messaging.severe("存款失败", amount, "到", player, "的NPC商店:", response.errorMessage);
             }
         });
+
     }
 
     public static class MoneyActionGUI implements GUI {
@@ -129,7 +131,7 @@ public class MoneyAction extends NPCShopAction {
                             && Bukkit.getServicesManager().getRegistration(Economy.class).getProvider() != null;
                 } catch (Throwable t) {
                     supported = false;
-                    Messaging.severe("Error fetching shop economy provider, shop economy integration will not work:");
+                    Messaging.severe("获取商店经济提供者时出错，商店经济集成将无法工作：");
                     t.printStackTrace();
                 }
             }

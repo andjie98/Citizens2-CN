@@ -96,7 +96,7 @@ public class Anchor {
     @Override
     public String toString() {
         final String[] parts = getUnloadedValue();
-        return "Anchor{Name='" + name + "';World='" + parts[0] + "';Location='" + parts[1] + ',' + parts[2] + ','
+        return "锚点{Name='" + name + "';世界='" + parts[0] + "';位置='" + parts[1] + ',' + parts[2] + ','
                 + parts[3] + "';}";
     }
 

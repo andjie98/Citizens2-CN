@@ -85,7 +85,7 @@ public class Poses extends Trait {
 
     public void describe(CommandSender sender, int page) throws CommandException {
         Paginator paginator = new Paginator().header("Pose").console(sender instanceof ConsoleCommandSender);
-        paginator.addLine("<green>ID  <yellow>Name  <red>Pitch/Yaw");
+        paginator.addLine("<green>ID <yellow>名称 <red>俯仰/偏航");
         int i = 0;
         for (Pose pose : poses.values()) {
             String line = "<green>" + i + "<yellow>  " + pose.getName() + "<red>  " + pose.getPitch() + " "

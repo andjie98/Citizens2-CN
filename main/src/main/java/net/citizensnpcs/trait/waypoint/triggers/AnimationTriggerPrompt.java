@@ -67,7 +67,7 @@ public class AnimationTriggerPrompt extends StringPrompt implements WaypointTrig
     public String getPromptText(ConversationContext context) {
         if (context.getSessionData("said") == Boolean.TRUE) {
             Messaging.send((CommandSender) context.getForWhom(),
-                    "Current animations:<br>-   " + Joiner.on("<br>-   ").join(animations));
+                    "当前动画:<br>-   " + Joiner.on("<br>-   ").join(animations));
         } else {
             Messaging.sendTr((CommandSender) context.getForWhom(), Messages.ANIMATION_TRIGGER_PROMPT,
                     getValidAnimations());

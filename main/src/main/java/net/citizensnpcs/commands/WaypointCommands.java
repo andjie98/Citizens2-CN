@@ -53,7 +53,7 @@ public class WaypointCommands {
             index = waypoints.size();
         }
         if (index > waypoints.size() || index < 0)
-            throw new CommandException("Index out of range. Can't be more than " + waypoints.size());
+            throw new CommandException("索引超出范围。不能超过 " + waypoints.size());
         waypoints.add(index, new Waypoint(loc));
         Messaging.sendTr(sender, Messages.WAYPOINT_ADDED, Util.prettyPrintLocation(loc), index);
     }
@@ -119,7 +119,7 @@ public class WaypointCommands {
         }
         boolean success = waypoints.setWaypointProvider(args.getString(1));
         if (!success)
-            throw new CommandException("Provider not found.");
+            throw new CommandException("找不到提供程序。");
         Messaging.sendTr(sender, Messages.WAYPOINT_PROVIDER_SET, args.getString(1));
     }
 

@@ -533,7 +533,7 @@ public class CommandTrait extends Trait {
         SHIFT_RIGHT;
     }
 
-    @Menu(title = "Drag items for requirements", type = InventoryType.CHEST, dimensions = { 5, 9 })
+    @Menu(title = "拖动物品以设置需求", type = InventoryType.CHEST, dimensions = { 5, 9 })
     public static class ItemRequirementGUI extends InventoryMenuPage {
         private int id = -1;
         private Inventory inventory;

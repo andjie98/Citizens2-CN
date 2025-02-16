@@ -83,7 +83,7 @@ public class CitizensNPC extends AbstractNPC {
             }
         }
         if (getEntity() == null && reason != DespawnReason.DEATH) {
-            Messaging.debug("Tried to despawn", this, "while already despawned, DespawnReason." + reason);
+            Messaging.debug("尝试取消生成", this, "时已取消生成, 取消生成原因: " + reason);
             return true;
         }
         NPCDespawnEvent event = new NPCDespawnEvent(this, reason);
@@ -92,8 +92,8 @@ public class CitizensNPC extends AbstractNPC {
         }
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled() && reason != DespawnReason.DEATH) {
-            Messaging.debug("Couldn't despawn", this, "due to despawn event cancellation. Will load chunk.",
-                    getEntity().isValid(), ", DespawnReason." + reason);
+            Messaging.debug("无法取消生成", this, "因为取消生成事件被取消。将加载区块。",
+                    getEntity().isValid(), ", 取消生成原因: " + reason);
             return false;
         }
         boolean keepSelected = getOrAddTrait(Spawned.class).shouldSpawn();
@@ -107,7 +107,7 @@ public class CitizensNPC extends AbstractNPC {
         for (Trait trait : new ArrayList<>(traits.values())) {
             trait.onDespawn(reason);
         }
-        Messaging.debug("Despawned", this, "DespawnReason." + reason);
+        Messaging.debug("已取消生成", this, "取消生成原因: " + reason);
 
         if (getEntity() instanceof SkinnableEntity) {
             ((SkinnableEntity) getEntity()).getSkinTracker().onRemoveNPC();
@@ -119,6 +119,7 @@ public class CitizensNPC extends AbstractNPC {
         } else {
             entityController.remove();
         }
+
         return true;
     }
 
